@@ -19,6 +19,7 @@
         0
       ]
     },
+
     {
       "id": 2,
       "group": "Rooms",
@@ -37,6 +38,7 @@
         4
       ]
     },
+
     {
       "id": 3,
       "group": "Rooms",
@@ -56,6 +58,7 @@
         6
       ]
     },
+
     {
       "id": 4,
       "group": "Rooms",
@@ -78,6 +81,7 @@
         6
       ]
     },
+
     {
       "id": 5,
       "group": "Kit",
@@ -97,6 +101,7 @@
         5
       ]
     },
+
     {
       "id": 6,
       "group": "Kit",
@@ -117,6 +122,8 @@
       ]
     }
   ],
+
+
   "users": [
     {
       "id": 1,
@@ -147,6 +154,8 @@
       "notes": "Sanjiv lives your life to better understand your power-tantrums and architect empathic growth journeys that break the shell and distribute the yoke company-wide."
     }
   ],
+
+
   "bookings": [],
   "sessions": [
     "Breakfast",
