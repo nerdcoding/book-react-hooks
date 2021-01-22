@@ -7,5 +7,5 @@ npm start
 === Chapter 2.2
 
 ```
-git checkout ch02-02
+git checkout rhia-ch02-02
 ```
