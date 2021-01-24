@@ -12,6 +12,11 @@ export default function BookablesList() {
     const bookablesInGroup = bookables.filter(bookable => bookable.group === group);
     const selectedBookable = bookablesInGroup[bookableIndex];
 
+    function changeGroup(event) {
+        setGroup(event.target.value);
+        setBookableIndex(0);
+    }
+
     function changeBookable(selectedIndex) {
         setBookableIndex(selectedIndex);
     }
@@ -25,7 +30,7 @@ export default function BookablesList() {
             <div>
                 <select
                     value={group}
-                    onChange={(e) => setGroup(e.target.value)}
+                    onChange={changeGroup}
                 >
                     {groups.map(g => (
                         <option key={g} value={g}>{g}</option>

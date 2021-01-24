@@ -15,3 +15,9 @@ git checkout rhia-ch02-02
 ```
 git checkout rhia-ch02-03
 ```
+
+=== Chapter 3.1
+
+```
+git checkout rhia-ch03-01
+```
