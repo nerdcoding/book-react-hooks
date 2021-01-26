@@ -1,25 +1,54 @@
-import React, {useReducer} from 'react';
+import React, {useReducer, useEffect} from 'react';
 
-import {FaArrowRight} from 'react-icons/all';
+import {FaArrowRight, FaSpinner} from 'react-icons/all';
 
-import {bookables, days, sessions} from '../../static.json';
+import {days, sessions} from '../../static.json';
 import reducer from './BookablesListRecucer';
+import axios from "axios";
 
 const initialState = {
     group: "Rooms",
     bookableIndex: 0,
     showDetails: false,
-    bookables
+    bookables: [],
+    isLoading: true,
+    error: false
 }
 
 export default function BookablesList() {
     const [state, dispatch] = useReducer(reducer, initialState);
-    const {group, bookableIndex, showDetails, bookables} = state;
+    const {group, bookables, bookableIndex, showDetails} = state;
+    const {isLoading, error} = state;
 
     const groups = [...new Set(bookables.map(bookable => bookable.group))]
     const bookablesInGroup = bookables.filter(bookable => bookable.group === group);
     const selectedBookable = bookablesInGroup[bookableIndex];
 
+    useEffect(() => {
+        dispatch({
+            type: 'FETCH_BOOKABLES_REQUEST'
+        });
+        axios.get("http://localhost:3001/bookables")
+            .then(response => {
+                dispatch({
+                    type: 'FETCH_BOOKABLES_SUCCESS',
+                    payload: response.data
+                });
+            })
+            .catch(error => {
+                dispatch({
+                    type: 'FETCH_BOOKABLES_ERROR',
+                    payload: error
+                });
+            });
+    }, []);
+
+    if (error) {
+        return <p>{error.message}</p>
+    }
+    if (isLoading) {
+        return <p><FaSpinner className="icon-loading" /> Loading bookables... </p>
+    }
 
     return (
         <>
