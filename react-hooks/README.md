@@ -33,3 +33,12 @@ git checkout rhia-ch03-02
 ```
 git checkout rhia-ch03-03
 ```
+
+=== Chapter 4.2
+
+```
+git checkout rhia-ch04-02
+```
+
+Run JSON server with `npx json-server --watch src/db.json --port 3001 --delay 3000` and React dev server 
+with `npm start`.
