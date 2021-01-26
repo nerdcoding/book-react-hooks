@@ -1,10 +1,20 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
+import axios from "axios";
+import {days, sessions} from '../../static.json'
 
-import {days, sessions, users} from '../../static.json'
 
 export default function UsersList() {
+    const [users, setUsers] = useState([]);
     const [selectedUserIndex, setSelectedUserIndex] = useState(1);
     const selectedUser = users[selectedUserIndex];
+
+    useEffect(() => {
+        axios.get('http://localhost:3001/users')
+            .then(response =>
+                setUsers(response.data)
+            )
+            .catch(error => console.log(error) )
+    }, []);
 
     function changeUser(selectedIndex) {
         setSelectedUserIndex(selectedIndex);
