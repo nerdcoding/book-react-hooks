@@ -15,16 +15,12 @@ const initialState = {
     error: false
 }
 
-export default function BookablesList() {
-    const [state, dispatch] = useReducer(reducer, initialState);
-    const {group, bookables, bookableIndex, showDetails} = state;
-    const {isLoading, error} = state;
+export default function BookablesList({state, dispatch}) {
+    const {group, bookables, bookableIndex, isLoading, error} = state;
 
     const groups = [...new Set(bookables.map(bookable => bookable.group))]
     const bookablesInGroup = bookables.filter(bookable => bookable.group === group);
-    const selectedBookable = bookablesInGroup[bookableIndex];
 
-    const timerRef = useRef(null);
     const nextButtonRef = useRef();
 
     useEffect(() => {
@@ -45,20 +41,6 @@ export default function BookablesList() {
                 });
             });
     }, []);
-
-    useEffect(() => {
-        timerRef.current = setInterval(() => {
-            dispatch({
-                type: "NEXT_BOOKABLE"
-            });
-        }, 3000);
-
-        return stopPresentation;
-    }, []);
-
-    function stopPresentation() {
-        clearInterval(timerRef.current);
-    }
 
     if (error) {
         return <p>{error.message}</p>
@@ -84,18 +66,18 @@ export default function BookablesList() {
 
                 <ul className="bookables items-list-nav">
                     {bookablesInGroup
-                        .map((b, i) =>(
-                            <li key={b.id} className={i === bookableIndex ? "selected" : null}>
+                        .map((bookable, index) =>(
+                            <li key={bookable.id} className={index === bookableIndex ? "selected" : null}>
                                 <button
                                     className="btn"
                                     onClick={() => {
                                         dispatch({
                                             type: "SET_BOOKABLE",
-                                            payload: i
+                                            payload: index
                                         });
                                         nextButtonRef.current.focus();
                                     }}>
-                                        {b.title}
+                                        {bookable.title}
                                 </button>
                             </li>
                         ))
@@ -115,57 +97,6 @@ export default function BookablesList() {
                     </button>
                 </p>
             </div>
-
-            {selectedBookable && (
-                <div className="bookable-details">
-                    <div className="item">
-                        <div className="item-header">
-                            <h2>
-                                {selectedBookable.title}
-                            </h2>
-                            <span className="controls">
-                                <label>
-                                    <input type="checkbox"
-                                           checked={showDetails}
-                                           onChange={() => dispatch({
-                                               type: "TOGGLE_SHOW_DETAILS"
-                                           })}
-                                    />
-                                    Show Details
-                                </label>
-                                <button className="btn"
-                                        onClick={stopPresentation}>
-                                    Stop
-                                </button>
-                            </span>
-                        </div>
-
-                        <p>{selectedBookable.notes}</p>
-
-                        {showDetails && (
-                            <div className="item-details">
-                                <h3>Availability</h3>
-                                <div className="bookable-availability">
-                                    <ul>
-                                        {selectedBookable.days
-                                            .sort()
-                                            .map(day => <li key={day}>{days[day]}</li>)
-                                        }
-                                    </ul>
-                                    <ul>
-                                        {selectedBookable.sessions
-                                            .sort()
-                                            .map(session => <li key={session}>{sessions[session]}</li>)
-                                        }
-                                    </ul>
-                                </div>
-                            </div>
-                        )}
-                    </div>
-                </div>
-            )}
-
-
         </>
     );
 }

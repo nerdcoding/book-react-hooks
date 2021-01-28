@@ -34,12 +34,6 @@ export default function reducer(state, action) {
                 bookableIndex: action.payload
             };
 
-        case "TOGGLE_SHOW_DETAILS":
-            return {
-                ...state,
-                showDetails: !state.showDetails
-            };
-
         case "NEXT_BOOKABLE":
             const bookablesCount = state.bookables
                 .filter(
