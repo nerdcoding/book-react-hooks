@@ -1,4 +1,4 @@
-import React, {useReducer, useEffect} from 'react';
+import React, {useReducer, useEffect, useRef} from 'react';
 
 import {FaArrowRight, FaSpinner} from 'react-icons/all';
 
@@ -24,6 +24,8 @@ export default function BookablesList() {
     const bookablesInGroup = bookables.filter(bookable => bookable.group === group);
     const selectedBookable = bookablesInGroup[bookableIndex];
 
+    const timerRef = useRef(null);
+
     useEffect(() => {
         dispatch({
             type: 'FETCH_BOOKABLES_REQUEST'
@@ -42,6 +44,20 @@ export default function BookablesList() {
                 });
             });
     }, []);
+
+    useEffect(() => {
+        timerRef.current = setInterval(() => {
+            dispatch({
+                type: "NEXT_BOOKABLE"
+            });
+        }, 3000);
+
+        return stopPresentation;
+    }, []);
+
+    function stopPresentation() {
+        clearInterval(timerRef.current);
+    }
 
     if (error) {
         return <p>{error.message}</p>
@@ -112,6 +128,10 @@ export default function BookablesList() {
                                     />
                                     Show Details
                                 </label>
+                                <button className="btn"
+                                        onClick={stopPresentation}>
+                                    Stop
+                                </button>
                             </span>
                         </div>
 

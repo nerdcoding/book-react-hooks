@@ -42,3 +42,13 @@ git checkout rhia-ch04-02
 
 Run JSON server with `npx json-server --watch src/db.json --port 3001 --delay 3000` and React dev server 
 with `npm start`.
+
+
+=== Chapter 5.2
+
+```
+git checkout rhia-ch05-02
+```
+
+Run JSON server with `npx json-server --watch src/db.json --port 3001 --delay 3000` and React dev server
+with `npm start`.
