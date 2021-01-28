@@ -25,6 +25,7 @@ export default function BookablesList() {
     const selectedBookable = bookablesInGroup[bookableIndex];
 
     const timerRef = useRef(null);
+    const nextButtonRef = useRef();
 
     useEffect(() => {
         dispatch({
@@ -87,10 +88,13 @@ export default function BookablesList() {
                             <li key={b.id} className={i === bookableIndex ? "selected" : null}>
                                 <button
                                     className="btn"
-                                    onClick={() => dispatch({
-                                        type: "SET_BOOKABLE",
-                                        payload: i
-                                    })}>
+                                    onClick={() => {
+                                        dispatch({
+                                            type: "SET_BOOKABLE",
+                                            payload: i
+                                        });
+                                        nextButtonRef.current.focus();
+                                    }}>
                                         {b.title}
                                 </button>
                             </li>
@@ -100,11 +104,12 @@ export default function BookablesList() {
 
                 <p>
                     <button
-                        className="btn"
-                        onClick={() => dispatch({
-                            type: "NEXT_BOOKABLE"
-                        })}
-                        autoFocus>
+                            className="btn"
+                            onClick={() => dispatch({
+                                type: "NEXT_BOOKABLE"
+                            })}
+                            ref={nextButtonRef}
+                            autoFocus>
                         <FaArrowRight />
                         <span>next</span>
                     </button>
