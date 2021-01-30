@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react';
 import axios from "axios";
-import {days, sessions} from '../../static.json'
 import {FaSpinner} from "react-icons/all";
 
 
