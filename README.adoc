@@ -1,7 +1,7 @@
 
 === About
 
-Example code from the https://www.manning.com/books/react-hooks-in-action[React Hooks in Action] book.
+Example code from the https://www.manning.com/books/react-hooks-in-action[React Hooks in Action, window=_blank] book.
 
 
 === Run application
